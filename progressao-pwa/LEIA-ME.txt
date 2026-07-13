@@ -1,0 +1,49 @@
+PROGRESSÃO — App de treino (PWA)
+=================================
+
+Este é um web app completo e instalável no celular. Os dados ficam salvos
+no próprio aparelho (não precisa de login nem servidor).
+
+Arquivos: index.html, app.js, icons.js, manifest.webmanifest, sw.js, /icons
+
+--------------------------------------------------
+COMO COLOCAR ONLINE (escolha 1 opção)
+--------------------------------------------------
+
+OPÇÃO A — Netlify Drop (mais fácil, sem conta técnica)
+  1. Acesse:  https://app.netlify.com/drop
+  2. Arraste a PASTA inteira (esta pasta descompactada) para a área indicada.
+  3. Em segundos você recebe um link tipo  https://seu-app.netlify.app
+  4. Abra esse link no celular. Pronto.
+  (Opcional: crie conta grátis para o link não expirar e poder renomear.)
+
+OPÇÃO B — GitHub Pages
+  1. Crie um repositório no GitHub e suba estes arquivos (na raiz).
+  2. Settings > Pages > Branch: main / (root) > Save.
+  3. O site fica em  https://SEU-USUARIO.github.io/NOME-DO-REPO/
+
+OPÇÃO C — Vercel / Cloudflare Pages
+  Suba a pasta como um "static site" (sem build). Funciona igual.
+
+IMPORTANTE: precisa ser servido por HTTPS (as opções acima já são).
+Abrir o index.html direto do disco (file://) NÃO ativa a instalação/offline.
+
+--------------------------------------------------
+COMO INSTALAR NO CELULAR
+--------------------------------------------------
+
+ANDROID (Chrome):
+  Abra o link > menu (⋮) > "Instalar app" ou "Adicionar à tela inicial".
+
+IPHONE (Safari):
+  Abra o link no Safari > botão Compartilhar (quadrado com seta) >
+  "Adicionar à Tela de Início".
+
+Depois de instalado, ele abre em tela cheia como um app normal e
+funciona offline.
+
+--------------------------------------------------
+BACKUP / TROCAR DE APARELHO
+--------------------------------------------------
+Como os dados ficam no aparelho, use o botão "Compartilhar" > "Baixar backup (.json)"
+para salvar seus dados, e "Restaurar backup" no outro aparelho para recuperar.
