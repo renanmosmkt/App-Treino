@@ -1,5 +1,5 @@
 /* Progressão — service worker: offline-first para o app shell */
-const CACHE = "progressao-v1";
+const CACHE = "progressao-v2"; // <- suba este número a cada atualização de app.js/index.html
 const ASSETS = [
   "./",
   "./index.html",
@@ -20,7 +20,6 @@ const ASSETS = [
 self.addEventListener("install", (e) => {
   e.waitUntil(
     caches.open(CACHE).then((c) =>
-      // addAll falha se um único recurso falhar; usamos add individual tolerante
       Promise.allSettled(ASSETS.map((u) => c.add(u)))
     ).then(() => self.skipWaiting())
   );
@@ -37,17 +36,25 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
-  // network-first para o HTML (pega atualizações), cache-first para o resto
-  if (req.mode === "navigate") {
+
+  const isSameOrigin = req.url.startsWith(self.location.origin);
+
+  // Arquivos do próprio app (HTML/JS/manifest/ícones): NETWORK-FIRST.
+  // Assim, toda vez que você atualizar app.js/index.html no GitHub,
+  // o navegador pega a versão nova em vez de reusar um cache antigo.
+  if (isSameOrigin) {
     e.respondWith(
       fetch(req).then((res) => {
         const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put("./index.html", copy));
+        caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
         return res;
-      }).catch(() => caches.match("./index.html"))
+      }).catch(() => caches.match(req).then((cached) => cached || caches.match("./index.html")))
     );
     return;
   }
+
+  // Bibliotecas externas (CDN, com versão fixa na URL): CACHE-FIRST.
+  // Seguro porque a URL já contém a versão exata (ex: react@18.3.1).
   e.respondWith(
     caches.match(req).then((cached) =>
       cached ||
