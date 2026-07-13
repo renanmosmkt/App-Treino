@@ -12,6 +12,8 @@ const ASSETS = [
   "https://cdn.tailwindcss.com",
   "https://unpkg.com/react@18.3.1/umd/react.production.min.js",
   "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js",
+  "https://unpkg.com/react-is@18.3.1/umd/react-is.production.min.js",
+  "https://unpkg.com/prop-types@15.8.1/prop-types.min.js",
   "https://unpkg.com/recharts@2.12.7/umd/Recharts.min.js",
 ];
 
